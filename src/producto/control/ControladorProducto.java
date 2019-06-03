@@ -1,20 +1,40 @@
 package producto.control;
 
 import java.util.List;
-import producto.dao.ProductoDAO;
-import producto.dao.ProductoDAOImp;
 import producto.dominio.Producto;
+import producto.persistencia.ProductoDAO;
+import producto.persistencia.ProductoDAOImp;
 
-public class ControladorProducto {
+public class ControladorProducto implements  ProductoDAO{
 
-    static public List<Producto> leerProductos() {
+    @Override
+    public List<Producto> leerProductos() {
         ProductoDAO pdao = new ProductoDAOImp();
         return pdao.leerProductos();
     }
+    
+    @Override
+    public Producto getProductoPorCodigo(int codigo){
+        ProductoDAO pdao = new ProductoDAOImp();
+        return pdao.getProductoPorCodigo(codigo);
+    }
 
-    static public boolean actualizarProducto(Producto producto) {
+    @Override
+    public boolean actualizarProducto(Producto producto) {
         ProductoDAO pdao = new ProductoDAOImp();
         return pdao.actualizarProducto(producto);
+    }
+
+    @Override
+    public boolean actualizarProducto(Producto producto, Producto.Atributo... atributos) {
+        ProductoDAO pdao = new ProductoDAOImp();
+        return pdao.actualizarProducto(producto, atributos);
+    }
+
+    @Override
+    public boolean actualizarCodigoProducto(int codigoActual, int codigoNuevo) {
+        ProductoDAO pdao = new ProductoDAOImp();
+        return pdao.actualizarCodigoProducto(codigoActual, codigoNuevo);
     }
 
 }

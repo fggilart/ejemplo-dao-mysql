@@ -1,24 +1,27 @@
 package empleado.control;
 
-import empleado.dao.EmpleadoDAO;
-import empleado.dao.EmpleadoDAOImp;
 import empleado.dominio.Empleado;
+import empleado.persistencia.EmpleadoDAO;
+import empleado.persistencia.EmpleadoDAOImp;
 import java.util.List;
 
-public class ControladorEmpleado {
+public class ControladorEmpleado implements EmpleadoDAO {
 
+    @Override
     public List<Empleado> leerEmpleados() {
         EmpleadoDAO edao = new EmpleadoDAOImp();
         return edao.leerEmpleados();
     }
 
+    @Override
     public Empleado getEmpleadoPorCodigo(int codigo) {
         EmpleadoDAO edao = new EmpleadoDAOImp();
         return edao.getEmpleadoPorCodigo(codigo);
     }
 
-    public boolean actualizarEmpleado(Empleado empleado) {
+    @Override
+    public boolean actualizarEmpleado(Empleado empleado, Empleado.Atributo... atributos) {
         EmpleadoDAO edao = new EmpleadoDAOImp();
-        return edao.actualizarEmpleado(empleado);
+        return edao.actualizarEmpleado(empleado, atributos);
     }
 }

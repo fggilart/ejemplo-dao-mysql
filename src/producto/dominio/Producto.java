@@ -7,6 +7,10 @@ public class Producto {
     private String descripcion;
     private double precio;
 
+    public static enum Atributo {
+        NOMBRE, DESCRIPCION, PRECIO, TODOS_LOS_ATRIBUTOS;
+    }
+
     public Producto(int codigo, String nombre, String descripcion, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -52,9 +56,11 @@ public class Producto {
 
     @Override
     public String toString() {
-        return String.format("%d %s %.2f%n",
-                getCodigo(), getNombre(), getPrecio());
-
+        return String.format("%-14s%d%n%-14s%s%n%-14s%s%n%-14s%.2f%n",
+                "Código:", getCodigo(),
+                "Nombre:", getNombre(),
+                "Descripción:", getDescripcion(),
+                "Precio", getPrecio());
     }
 
 }

@@ -1,7 +1,8 @@
 package empleado.control;
 
 import empleado.dominio.Empleado;
-import java.util.Scanner;
+import empleado.vista.VistaEmpleado;
+import tienda.vista.VistaTienda;
 import util.Color;
 
 public class GestionaEmpleados {
@@ -14,27 +15,12 @@ public class GestionaEmpleados {
         this.empleadoAutenticado = null;
     }
 
-    public void login() {
-        Scanner leerTeclado = new Scanner(System.in);
+    public void login() throws Exception {
         boolean esEmpleadoValido = false;
         boolean esPasswordValido = false;
 
-        System.out.println("Bienvenido a la tienda");
-        System.out.println("***************************************");
-
-        System.out.print("Introduce el código de tu usuario: ");
-        while (!leerTeclado.hasNextInt()) {
-            System.out.println(Color.ERROR + "Debe escribir un valor numérico" + Color.DEFAULT);
-            System.out.print("Introduce el código de tu usuario: ");
-            leerTeclado.next();
-        }
-        int codigoEntrada = leerTeclado.nextInt();
-
-        System.out.print("Introduce tu contraseña: ");
-        String passwordEntrada = leerTeclado.next();
-
-        System.out.println("***************************************");
-        System.out.println("");
+        int codigoEntrada = VistaEmpleado.pedirCodigoEmpleado();
+        String passwordEntrada = VistaEmpleado.pedirPasswordEmpleado();
 
         empleadoAutenticado = controlador.getEmpleadoPorCodigo(codigoEntrada);
         if (empleadoAutenticado != null) {
@@ -46,19 +32,31 @@ public class GestionaEmpleados {
 
         if (!esEmpleadoValido) {
             //throw new ;
-            System.out.println("Usuario incorrecto");
+            VistaTienda.muestraMensaje("Usuario incorrecto", Color.ERROR);
+            throw new Exception();
         } else if (!esPasswordValido) {
             //throw new ;
-            System.out.println("Contraseña incorrecta");
+            VistaTienda.muestraMensaje("Contraseña incorrecta", Color.ERROR);
+            throw new Exception();
         }
-
 
     }
 
     public Empleado getEmpleadoAutenticado() {
         return empleadoAutenticado;
     }
-    
-    
+
+    public void cambiarPassword() {
+        String nuevoPassword = VistaEmpleado.pedirNuevoPasswordEmpleado();
+        empleadoAutenticado.setPassword(nuevoPassword);
+
+        if (controlador.actualizarEmpleado(empleadoAutenticado, Empleado.Atributo.PASSWORD)) {
+            VistaEmpleado.notificarActualizacionExito();
+        } else {
+            VistaEmpleado.notificarActualizacionError();
+        }
+
+        VistaTienda.esperarTeclaEnterContinuar();
+    }
 
 }

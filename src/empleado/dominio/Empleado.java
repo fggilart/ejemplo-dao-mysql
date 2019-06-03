@@ -6,6 +6,10 @@ public class Empleado {
     private String nombre;
     private String apellidos;
     private String password;
+    
+    public static enum Atributo {
+        NOMBRE, APELLIDOS, PASSWORD, TODOS_LOS_ATRIBUTOS;
+    }
 
     public Empleado(int codigo, String nombre, String apellidos, String password) {
         this.codigo = codigo;

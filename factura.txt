@@ -1,0 +1,12 @@
+-----------------------------------------------------------
+Factura
+
+[Producto 1]
+Código:       221
+Nombre:       Gigabyte B450M DS3H
+Descripción:  Placa base GIGABYTE serie 400 con tecnología AMD StoreMI
+Precio        67,00
+
+El precio TOTAL es: 67,00 €
+Atendido por: Mario
+-----------------------------------------------------------
